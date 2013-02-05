@@ -1,0 +1,12 @@
+<extension xmlns="http://ns.adobe.com/air/extension/3.6">
+    <id>net.psykosoft.imageprocessing</id>
+    <versionNumber>0.0.1</versionNumber>
+    <platforms>
+		<platform name="iPhone-ARM">
+            <applicationDeployment>
+                <nativeLibrary>libImageProcessingExtension.a</nativeLibrary>
+                <initializer>ImageProcessingExtensionInitializer</initializer>
+            </applicationDeployment>
+        </platform>
+    </platforms>
+</extension>

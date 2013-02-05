@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Adobe Native Extension Packager" default="all" basedir=".">
+
+    <property name="extensionName" value="ImageProcessingExtension"/>
+    <property name="flexsdk" value="/Users/palebluedot/Documents/Libraries/Flex/flex-4.6.0.23201-air-3.6-asc2-preview5"/>
+
+    <target name="all" depends="clean,init,ios,compileswc,extractswf,copyfiles,package"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="init">
+        <mkdir dir="build"/>
+    </target>
+
+    <target name="ios">
+        <!-- TODO: could compile library here also, not just copy it. For now, we're going to have to compile the xcodeproject
+        manually into the copy file src parameter velow. -->
+        <mkdir dir="build/ios"/> 
+        <copy file="src-ios/build/Release-iphoneos/libImageProcessingExtension.a" todir="build/ios"/>   
+    </target>
+
+    <target name="compileswc">
+        
+        <fileset dir="src-as3/src" casesensitive="yes" id="classfiles">
+            <include name="**/*.as"/>
+        </fileset>
+
+        <pathconvert property="classlist" refid="classfiles" pathsep=" " dirsep=".">
+            <regexpmapper from=".*src.(.*)\.as" to="\1"/>
+        </pathconvert> 
+
+            <exec executable="${flexsdk}/bin/compc" failonerror="true">
+                <arg line='-source-path src-as3/src'/>
+                <arg line='-output build/${extensionName}.swc'/>
+                <arg line='-swf-version=17'/>
+                <arg line='-debug=false'/>
+                <arg line='-external-library-path+="${flexsdk}/frameworks/libs/air/airglobal.swc"'/>
+                <arg line='-include-classes ${classlist}'/>
+            </exec>  
+    
+    </target>
+
+    <target name="extractswf">
+        <unzip src="build/${extensionName}.swc" dest="build/ios"/>
+    </target>
+
+    <target name="copyfiles">
+        <copy file="extension.xml" todir="build"/>
+        <copy file="platformoptions.xml" todir="build"/>
+    </target>
+
+    <target name="package">
+        <exec executable="${flexsdk}/bin/adt" failonerror="true">
+            <arg value="-package"/>
+            <arg value="-target"/>
+            <arg value="ane"/>
+            <arg value="build/${extensionName}.ane"/>
+            <arg value="build/extension.xml"/>
+            <arg line="-swc build/${extensionName}.swc"/>
+            <arg line="-platform iPhone-ARM -platformoptions build/platformoptions.xml -C build/ios ."/>
+        </exec>    
+    </target>
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
