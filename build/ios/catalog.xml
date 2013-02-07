@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+    <versions>
+        <swc version="1.2"/>
+        <compiler name="ActionScript Compiler" version="2.0.0" build="352231"/>
+    </versions>
+    <features>
+        <feature-script-deps/>
+    </features>
+    <libraries>
+        <library path="library.swf">
+            <script name="net/psykosoft/imageprocessing/ImageProcessingExtension" mod="1360170702000">
+                <def id="net.psykosoft.imageprocessing:ImageProcessingExtension"/>
+                <dep id="Error" type="e"/>
+                <dep id="Object" type="i"/>
+                <dep id="flash.display:BitmapData" type="s"/>
+                <dep id="flash.external:ExtensionContext" type="s"/>
+            </script>
+            <digests>
+                <digest type="SHA-256" signed="false" value="eb6e944c391e1064a696612ea2d2a2815811fb2bd5ff32449bed3d841f6ca2b1"/>
+            </digests>
+        </library>
+    </libraries>
+</swc>
